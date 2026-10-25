@@ -1,24 +1,27 @@
-# Bot clasificador de frutas (Fresca / Podrida)
+# Bot clasificador de especies animales (Perro / Gato / Caballo / Vaca)
 
 Tareas: 115564 (comando `$check`), 115566 (entrena tu modelo), 115702 / 115703 (modelo en el bot y README).
 
 ## Descripcion detallada
 
-Bot de Discord que recibe la foto de una fruta y dice si esta **Fresca** o **Podrida**.
-Responde con la clase detectada, el porcentaje de confianza y un consejo segun la clase
-(consumirla o desecharla).
+Bot de Discord que recibe la foto de un animal y dice de que especie es: **Perro**, **Gato**, **Caballo** o **Vaca**.
+Responde con la especie, el porcentaje de confianza y un dato curioso breve. Si la confianza es menor al 60 %,
+dice que no esta seguro en lugar de dar una respuesta dudosa.
 
 ### Idea y dataset (115566)
 
-- Idea: ayudar a decidir si una fruta todavia se puede consumir.
+- Idea: identificar rapidamente la especie de un animal a partir de una foto.
 - Herramienta: [Teachable Machine](https://teachablemachine.withgoogle.com/) (proyecto de imagenes).
-- Clases: `Fresca` y `Podrida`.
-- Dataset sugerido: unas 100 fotos por clase de manzanas, bananos y naranjas, con distintos fondos y luz.
-  Fresca: piel firme y color uniforme. Podrida: manchas oscuras, moho o piel arrugada.
-- Exportar el modelo en formato Keras (`keras_model.h5` y `labels.txt`).
+- Clases: `Perro`, `Gato`, `Caballo` y `Vaca`.
+- Dataset: 45 fotos por clase tomadas de iNaturalist con licencia abierta, y 4 fotos de prueba por clase
+  que el modelo no vio durante el entrenamiento.
+- Exportar el modelo en formato Keras (`keras_model.h5` y `labels.txt`, con lineas como `0 Perro`).
+- Precision medida con las 16 fotos de prueba (`test/<Clase>/`): 13/16 = 81 %.
+  Gatos 4/4, caballos 4/4 (uno con confianza 0.50), perros 3/4 (un perro se clasifico como Gato con 0.97)
+  y vacas 2/4 (una como Perro con 0.80 y otra como Gato con 0.77).
 
-Nota: el modelo entrenado no se incluye en el repositorio. El bot muestra un mensaje claro si faltan
-`keras_model.h5` o `labels.txt`.
+Nota: los archivos del modelo (`keras_model.h5` y `labels.txt`) se guardan en esta carpeta. Si faltan,
+el bot muestra un mensaje claro pidiendo exportarlos desde Teachable Machine.
 
 ## Como funciona el modelo
 
@@ -32,7 +35,7 @@ la normaliza a [-1, 1], ejecuta `model.predict` y devuelve la clase con mayor pr
 pip install -r requirements.txt
 ```
 
-Copia `keras_model.h5` y `labels.txt` en esta carpeta y define el token del bot:
+Define el token del bot:
 
 ```
 set DISCORD_TOKEN=TU_TOKEN_AQUI        (Windows cmd)

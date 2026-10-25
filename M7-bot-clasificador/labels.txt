@@ -1,0 +1,4 @@
+0 Perro
+1 Gato
+2 Caballo
+3 Vaca

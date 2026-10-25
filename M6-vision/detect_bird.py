@@ -4,8 +4,8 @@ from PIL import Image, ImageOps
 
 RECOMENDACIONES = {
     "Paloma": "garbanzos, trigo, cebada, semillas, trigo sarraceno, mijo, guisantes, lentejas y otros cereales en forma seca.",
-    "Gorrión": "maíz partido, granos de cereales, avena, trigo, arroz e insectos secos.",
-    "Colibrí": "agua con azúcar en proporción 1:4 (una parte de azúcar por cuatro de agua). Nunca des miel.",
+    "Gorrion": "maíz partido, granos de cereales, avena, trigo, arroz e insectos secos.",
+    "Colibri": "agua con azúcar en proporción 1:4 (una parte de azúcar por cuatro de agua). Nunca des miel.",
 }
 
 
@@ -40,6 +40,6 @@ if __name__ == "__main__":
     import sys
 
     ruta = sys.argv[1] if len(sys.argv) > 1 else "ave.jpg"
-    nombre, prob = detect_bird(ruta, "keras_model.h5", "labels.txt")
+    nombre, prob = detect_bird(ruta, "modelo_aves/keras_model.h5", "modelo_aves/labels.txt")
     print(f"Ave: {nombre} ({prob:.1%})")
     print("Puedes darle:", recomendar(nombre))

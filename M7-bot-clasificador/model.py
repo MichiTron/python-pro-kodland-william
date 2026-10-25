@@ -21,5 +21,5 @@ def get_class(model_path, labels_path, image_path):
     class_name = class_names[index]
     confidence_score = float(prediction[0][index])
 
-    # labels.txt tiene lineas como "0 Fresca"; quitamos el indice
+    # labels.txt tiene lineas como "0 Perro"; quitamos el indice
     return class_name[2:].strip(), confidence_score

@@ -8,12 +8,13 @@
 | 115679 Completar un pedido | `safetyai.py`, `safetyai.ipynb` | SafetyAI: usuarios de la carretera con ImageAI (YOLOv3) y recortes en `objetos/` |
 | 115694 / 115695 / 115680 / 115672-115675 | `startup/README.md` | Idea de proyecto, pruebas y resumen de progreso |
 
-Los modelos (`keras_model.h5`, `labels.txt`, `yolov3.pt`) no se incluyen: se exportan de Teachable Machine o se descargan (ver los cuadernos).
+El modelo de aves ya esta en `modelo_aves/` (`keras_model.h5`, `labels.txt`; clases Paloma, Gorrion, Colibri) y `detect_bird.py` lo usa por defecto.
+Los demas modelos (`yolov3.pt` y los de los otros ejercicios) no se incluyen: se exportan de Teachable Machine o se descargan (ver los cuadernos).
 
 ## Cómo ejecutar
 
 - Colab: abrir el cuaderno, subir el modelo y ejecutar las celdas.
-- Local: `python detect_bird.py ave.jpg`, `python gatos_reales_vs_ia.py gato.jpg`,
+- Local: `python detect_bird.py ave.jpg` (ejecutar desde `M6-vision/`), `python gatos_reales_vs_ia.py gato.jpg`,
   `python verificador_concurso.py fotos/ --umbral 0.85`, `python safetyai.py` (requiere tensorflow / imageai).
 
 ## Público objetivo del verificador (115696)

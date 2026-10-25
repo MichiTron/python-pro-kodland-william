@@ -8,10 +8,14 @@ from model import get_class
 MODEL_PATH = "keras_model.h5"
 LABELS_PATH = "labels.txt"
 
-# Consejo segun la clase detectada
-CONSEJOS = {
-    "Fresca": "La fruta esta en buen estado. Puedes consumirla; guardala en un lugar fresco.",
-    "Podrida": "La fruta esta en mal estado. No la consumas; desechala o usala como compost.",
+UMBRAL = 0.60  # por debajo de esta confianza el bot no se arriesga
+
+# Dato curioso segun la especie detectada
+DATOS = {
+    "Perro": "Los perros tienen un olfato entre 10.000 y 100.000 veces mas sensible que el humano.",
+    "Gato": "Los gatos duermen entre 12 y 16 horas al dia y casi siempre caen de pie.",
+    "Caballo": "Los caballos pueden dormir de pie gracias a un mecanismo que bloquea sus patas.",
+    "Vaca": "Las vacas tienen amigas inseparables y se estresan si las separan de ellas.",
 }
 
 intents = discord.Intents.default()
@@ -42,8 +46,11 @@ async def check(ctx):
         await attachment.save(path)
 
         clase, confianza = get_class(MODEL_PATH, LABELS_PATH, path)
-        consejo = CONSEJOS.get(clase, "Sin consejo disponible para esta clase.")
-        await ctx.send(f"Clase: {clase}\nConfianza: {confianza:.1%}\nConsejo: {consejo}")
+        if confianza < UMBRAL:
+            await ctx.send(f"No estoy seguro de que animal es (mejor opcion: {clase}, {confianza:.0%}). Prueba con otra foto.")
+            continue
+        dato = DATOS.get(clase, "Sin dato curioso para esta especie.")
+        await ctx.send(f"Especie: {clase}\nConfianza: {confianza:.0%}\nDato curioso: {dato}")
 
 
 token = os.environ.get("DISCORD_TOKEN")

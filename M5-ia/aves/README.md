@@ -6,8 +6,8 @@ El código que usa el modelo exportado está en [`../../M6-vision/detect_bird.py
 ## Clases
 
 1. Paloma
-2. Gorrión
-3. Colibrí (clase nueva de la tarea 115667)
+2. Gorrion
+3. Colibri (clase nueva añadida para la tarea de casa, 115667)
 
 ## Estructura de dataset propuesta
 
@@ -32,3 +32,31 @@ aves/
 3. Entrenar el modelo (115665) y probarlo con las imágenes de `test/`, anotando la precisión por clase.
 4. Añadir la clase Colibrí con fotos nuevas de internet o del parque, volver a entrenar y probar (115667). Guardar el proyecto.
 5. Exportar como TensorFlow (Keras): se descargan `keras_model.h5` y `labels.txt`, que usa `detect_bird.py`.
+
+## Dataset
+
+- 3 clases: Paloma, Gorrion y Colibri.
+- 45 imágenes por clase, de iNaturalist con licencia abierta, filtradas a fotos donde se ve el organismo.
+- Imágenes de prueba que el modelo no vio durante el entrenamiento: 4 por clase, en `test/<Clase>/`.
+
+## Entrenamiento
+
+Modelo entrenado en Teachable Machine (proyecto de imágenes) con los parámetros por defecto.
+Se exportó en formato Keras y está en [`../../M6-vision/modelo_aves/`](../../M6-vision/modelo_aves/) (`keras_model.h5` y `labels.txt`).
+
+## Resultados
+
+Se midió con las 12 imágenes de `test/`: **10/12 = 83 %**.
+
+| Clase | Aciertos |
+|---|---|
+| Paloma | 4/4 |
+| Colibri | 4/4 |
+| Gorrion | 2/4 |
+
+Fallos: un gorrión clasificado como colibrí (confianza 0.59) y otro clasificado como paloma (confianza 0.93).
+
+## Ideas para mejorar
+
+- Añadir más fotos de gorrión en primer plano, que es la clase que más se confunde.
+- Entrenar con más épocas.
