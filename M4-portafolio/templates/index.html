@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Portafolio de William Rueda</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header__nav main-nav">
+        <ul class="main-nav__list main-list">
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#home">INICIO</a>
+          </li>
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#about">SOBRE MÍ</a>
+          </li>
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#skills">HABILIDADES</a>
+          </li>
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#projects">PROYECTOS</a>
+          </li>
+          <li class="main-list__item list-item">
+            <a class="list-item__link" href="#feedback">CONTACTO</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <!-- Vista previa -->
+      <section class="main__home home" id="home">
+        <h1 class="home__title">WILLIAM RUEDA</h1>
+        <p class="home__subtitle">ESTUDIANTE DE PROGRAMACIÓN EN PYTHON</p>
+      </section>
+      <!-- Acerca de mí -->
+      <section class="main__about about" id="about">
+        <h2 class="about__title">SOBRE MÍ</h2>
+        <div class="about__info info-block">
+          <p class="info-block__text">
+            Soy estudiante de programación en Python y vivo en Colombia.
+            Me gusta crear bots, sitios web con Flask y pequeños proyectos
+            con inteligencia artificial. Busco prácticas o proyectos donde
+            seguir aprendiendo y aportar a un equipo. Aquí puedes ver mis
+            habilidades y lo que he construido hasta ahora.
+          </p>
+          <img
+            class="info-block__img"
+            src="{{ url_for('static', filename='img/profile.png') }}"
+            alt="Imagen de perfil"
+            width="250"
+            height="250"
+          />
+        </div>
+      </section>
+      <!-- Sección de competencias (se dibuja desde la lista HABILIDADES de main.py) -->
+      <section class="main__skills skills" id="skills">
+        <h2 class="skills__title">HABILIDADES</h2>
+        <form action="/#projects" method="POST">
+          <ul class="skills__list skills-list">
+            {% for h in habilidades %}
+            <li class="skills-list__skill skill">
+              <img
+                class="skill__img"
+                src="{{ url_for('static', filename='img/' + h.imagen) }}"
+                alt="{{ h.nombre }}"
+                width="150"
+                height="150"
+              />
+              <span class="skill__name">{{ h.nombre }}</span>
+              <span class="skill__info">{{ h.info }}</span>
+              <button class="skill__button {% if skill == h.id %}skill__button--active{% endif %}" type="submit" name="skill" value="{{ h.id }}">VER PROYECTOS</button>
+            </li>
+            {% endfor %}
+          </ul>
+        </form>
+      </section>
+      <!-- Proyectos (todos, o solo los de la habilidad elegida) -->
+      <section class="main__projects projects" id="projects">
+        <h2 class="projects__title">PROYECTOS</h2>
+        {% if skill %}
+        <p class="projects__filter">
+          Filtrado por: {{ (habilidades | selectattr('id', 'equalto', skill) | first).nombre }}
+          <a class="projects__all" href="/#projects">Ver todos</a>
+        </p>
+        {% endif %}
+        <ul class="projects__list projects-list">
+          {% for p in proyectos %}
+          <li class="projects-list__item project">
+            <img class="project__img" src="{{ url_for('static', filename='img/python-project.png') }}" alt="{{ p.nombre }}" width="300">
+            <h3 class="project__name">{{ p.nombre }}</h3>
+            <p class="project__info">{{ p.info }}</p>
+            {% if p.url %}
+            <a class="project__link" href="{{ p.url }}">Abrir en GitHub</a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      <!-- Formulario de contacto -->
+      <section class="main__feedback feedback" id="feedback">
+        <h2 class="feedback__title">CONTACTO</h2>
+        {% if enviado %}
+        <div class="feedback__sent">
+          <p>Mensaje recibido. Esto fue lo que enviaste:</p>
+          <p><strong>Correo:</strong> {{ email }}</p>
+          <p><strong>Comentario:</strong> {{ comentario }}</p>
+        </div>
+        {% endif %}
+        <form action="/contacto#feedback" method="POST" class="feedback__form form">
+          <label for="email">
+            <input type="email" class="form__input" name="email" id="email" placeholder="Escribe tu correo" required>
+          </label>
+          <label for="text">
+            <textarea name="text" class="form__input" id="text" cols="70" rows="10" required placeholder="Escribe tu comentario"></textarea>
+          </label>
+          <button class="form__button" type="submit">ENVIAR</button>
+        </form>
+      </section>
+    </main>
+    <!-- Pie de página -->
+    <footer class="footer">
+      <p>Portafolio de William Rueda, estudiante de Python</p>
+    </footer>
+  </body>
+</html>

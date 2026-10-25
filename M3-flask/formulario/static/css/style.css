@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background-color: #CCE59D;
+    color: #272727;
+}
+
+.card {
+    max-width: 460px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #EB8028;
+    border-radius: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #0EB07C;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Estilos de form_result.html (115547) */
+.result p {
+    padding: 10px 14px;
+    background: #f4faea;
+    border-left: 5px solid #0EB07C;
+    border-radius: 8px;
+}
+
+.result__label {
+    font-weight: bold;
+    color: #EB8028;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    color: #0EB07C;
+}

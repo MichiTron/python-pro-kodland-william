@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Resultado del formulario</title>
+</head>
+<body>
+  <main class="card result">
+    <h1>Datos recibidos</h1>
+    <p><span class="result__label">Nombre:</span> {{ name }}</p>
+    <p><span class="result__label">Correo electrónico:</span> {{ email }}</p>
+    <p><span class="result__label">Dirección:</span> {{ address }}</p>
+    <p><span class="result__label">Fecha:</span> {{ date }}</p>
+    <a class="back" href="/">Volver al formulario</a>
+  </main>
+</body>
+</html>
