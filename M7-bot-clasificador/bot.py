@@ -37,7 +37,7 @@ async def check(ctx):
 
     os.makedirs("./images", exist_ok=True)
     for attachment in ctx.message.attachments:
-        file_name = attachment.filename
+        file_name = os.path.basename(attachment.filename)  # evita rutas como ../
         path = f"./images/{file_name}"
         await attachment.save(path)
 

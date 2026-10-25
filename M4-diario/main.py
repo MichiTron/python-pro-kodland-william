@@ -1,11 +1,13 @@
 # Importar
+import os
+
 from flask import Flask, render_template, request, redirect, session
 # Importando la biblioteca de bases de datos
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 # Clave para poder usar session
-app.secret_key = 'my_top_secret_123'
+app.secret_key = os.environ.get('SECRET_KEY', 'my_top_secret_123')  # en produccion definir SECRET_KEY
 # Conectando SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///diary.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -86,7 +88,8 @@ def index():
 @app.route('/card/<int:id>')
 def card(id):
     # Tarea #2. Mostrando la tarjeta correcta por su id
-    card = db.get_or_404(Card, id)
+    # solo el dueño puede ver su tarjeta
+    card = Card.query.filter_by(id=id, user_email=session.get('user_email')).first_or_404()
     return render_template('card.html', card=card)
 
 

@@ -17,29 +17,30 @@ def index():
     return render_template('index.html')
 
 # La segunda página
-@app.route('/<size>')
+# int: evita inyectar texto en los enlaces de las plantillas
+@app.route('/<int:size>')
 def lights(size):
     return render_template(
                             'lights.html', 
-                            size=size
+                            size=str(size)
                            )
 
 # La tercera página
-@app.route('/<size>/<lights>')
+@app.route('/<int:size>/<int:lights>')
 def electronics(size, lights):
     return render_template(
                             'electronics.html',
-                            size = size, 
-                            lights = lights                           
+                            size = str(size), 
+                            lights = str(lights)                           
                            )
 
 # Cálculo
-@app.route('/<size>/<lights>/<device>')
+@app.route('/<int:size>/<int:lights>/<int:device>')
 def end(size, lights, device):
     return render_template('end.html', 
-                            result=result_calculate(int(size),
-                                                    int(lights), 
-                                                    int(device)
+                            result=result_calculate(size,
+                                                    lights, 
+                                                    device
                                                     )
                         )
 if __name__ == "__main__":
