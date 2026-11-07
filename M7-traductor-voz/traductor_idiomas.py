@@ -1,4 +1,4 @@
-import sounddevice as sd
+import sounddevice as sd # Me voy a matar ☠️
 from scipy.io.wavfile import write
 import speech_recognition as sr
 from googletrans import Translator, LANGUAGES
